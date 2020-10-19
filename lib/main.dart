@@ -11,13 +11,28 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text('ListView widget')),
-        body: ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(items[index]),
-            );
-          },
+        body: Center(
+          child: Column(
+            children: [
+              Expanded(
+                  child: RaisedButton(
+                color: Colors.red,
+                onPressed: () {},
+                child: Text("Red"),
+              )),
+              RaisedButton(
+                onPressed: () {},
+                color: Colors.orange,
+                child: Text("Orange"),
+              ),
+              Expanded(
+                  child: RaisedButton(
+                color: Colors.yellow,
+                onPressed: () {},
+                child: Text("Yellow"),
+              ))
+            ],
+          ),
         ),
       ),
     );
