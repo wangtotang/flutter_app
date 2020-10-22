@@ -1,9 +1,107 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MaterialApp(
-      title: "导航演示",
-      home: FirstScreen(),
-    ));
+void main() => runApp(MaterialApp(title: "导航演示", home: ZhaoXiaoJieJie()));
+
+class ZhaoXiaoJieJie extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("找小姐姐"),
+      ),
+      body: Center(child: Image.asset("images/ic_logout.png")),
+    );
+  }
+}
+
+class RouteButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      onPressed: () => _navigateToXiaoJieJie(context),
+      child: Text("去找小姐姐"),
+    );
+  }
+
+  _navigateToXiaoJieJie(BuildContext context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => XiaoJieJie()));
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text(result)));
+  }
+}
+
+class XiaoJieJie extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("小姐姐"),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            RaisedButton(
+              onPressed: () => Navigator.pop(context, "大长腿小姐姐 15016548888"),
+              child: Text("大长腿小姐姐"),
+            ),
+            RaisedButton(
+              onPressed: () => Navigator.pop(context, "小蛮腰小姐姐 15016549999"),
+              child: Text("小蛮腰小姐姐"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Product {
+  String title;
+  String description;
+  Product(this.title, this.description);
+}
+
+class ProductList extends StatelessWidget {
+  List<Product> products;
+  ProductList({Key key, @required this.products}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Product"),
+      ),
+      body: ListView.builder(
+        itemBuilder: (context, index) => ListTile(
+          title: Text(products[index].title),
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        ProductDetail(product: products[index])));
+          },
+        ),
+        itemCount: products.length,
+      ),
+    );
+  }
+}
+
+class ProductDetail extends StatelessWidget {
+  Product product;
+  ProductDetail({Key key, @required this.product}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("${product.title}"),
+      ),
+      body: Center(child: Text("${product.description}")),
+    );
+  }
+}
 
 class FirstScreen extends StatelessWidget {
   @override
